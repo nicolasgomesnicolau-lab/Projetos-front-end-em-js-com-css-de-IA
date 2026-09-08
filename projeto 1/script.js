@@ -596,6 +596,8 @@ intervalo2 = setInterval(() => {
                     Pronto.addEventListener('click', (btn) => {
                       btn.preventDefault()
                       const formFim = topicoAtual.querySelector('.roteiro')
+                      let tiraBTN = item.closest('.tipos-notas')
+                      tiraBTN.remove()
                       formFim.remove()
                       Pronto.remove()
                       SelecionaOpcao = true
@@ -643,6 +645,8 @@ intervalo2 = setInterval(() => {
                     Pronto.addEventListener('click', (btn) => {
                       btn.preventDefault()
                       const formFim = topicoAtual.querySelector('.definicoes')
+                      let tiraBTN = item.closest('.tipos-notas')
+                      tiraBTN.remove()
                       formFim.remove()
                       Pronto.remove()
                       SelecionaOpcao = true
@@ -683,6 +687,8 @@ intervalo2 = setInterval(() => {
                     Pronto.addEventListener('click', (btn) => {
                       btn.preventDefault()
                       const formFim = topicoAtual.querySelector('.anotacoes')
+                      let tiraBTN = item.closest('.tipos-notas')
+                      tiraBTN.remove()
                       formFim.remove()
                       Pronto.remove()
                       SelecionaOpcao = true
