@@ -305,7 +305,7 @@ async function addAgendaSupa(agendaHtml) {
   }
   const userID = user.id
   const agendaSection = agendaHtml.outerHTML
-  const IdAgenda = agendaHtml.classList
+  const IdAgenda = agendaHtml.classList[0]
   
   const {data, error} = await supa
   .from('agendas')
