@@ -490,45 +490,48 @@ const logadadissimo = `
 
 function botaoRemoveAgenda() {
   const agendaFeita = document.querySelector('.agendas-feita')
-  if (agendaFeita.childElementCount > 0) {
-    clearInterval(intervaloRemove)
-    const htmlRemove = `
-    <a class="removerFeito" href="remove">x</a>
-    `
-    const TodosTopico = document.querySelectorAll('div[classs^="agenda-"]')
-    TodosTopico.forEach((item) => {
-      console.log(item)
-      item.insertAdjacentHTML('afterbegin', htmlRemove)
-      const botaoRemove = document.querySelectorAll('.removerFeito')
-      const itemTarget = item.currentTarget
-      botaoRemove.forEach((botoes) => {
-        botoes.addEventListener('click', (q) => {
-          q.preventDefault()
-          item.remove()
-          DeletarBanco(item)
-      })})})
-      }}
+  intervaloRemove = setInterval(() => {
+    if (agendaFeita.childElementCount > 0) {
+      clearInterval(intervaloRemove)
+      const htmlRemove = `
+      <a class="removerFeito" href="remove">x</a>
+      `
+      const TodosTopico = document.querySelectorAll('div[classs^="agenda-"]')
+      TodosTopico.forEach((item) => {
+        console.log(item)
+        item.insertAdjacentHTML('afterbegin', htmlRemove)
+        const botaoRemove = document.querySelectorAll('.removerFeito')
+        const itemTarget = item.currentTarget
+        botaoRemove.forEach((botoes) => {
+          botoes.addEventListener('click', (q) => {
+            q.preventDefault()
+            item.remove()
+            DeletarBanco(item)
+        })})})
+        }}, 900)}
 
 function BotaoRemoveTopicos() {
   const topicoFeitos = document.querySelector('.topicos-feitos')
-  if (topicoFeitos.childElementCount > 0) {
-    clearInterval(intervaloRemove)
-    const htmlRemove = `
-    <a class="removerFeito" href="remove">x</a>
-    `
-    const TodosTopico = document.querySelectorAll('.topico')
-    TodosTopico.forEach((item) => {
-      console.log(item, item.currentTarget)
-      item.insertAdjacentHTML('afterbegin', htmlRemove)
-      const botaoRemove = document.querySelectorAll('.removerFeito')
-      const itemTarget = item.currentTarget
-      botaoRemove.forEach((botoes) => {
-        botoes.addEventListener('click', (q) => {
-          q.preventDefault()
-          item.remove()
-          DeletarBanco(item)
-      })})})
-      }}
+  intervaloRemove = setInterval(() => {
+    if (topicoFeitos.childElementCount > 0) {
+      clearInterval(intervaloRemove)
+      const htmlRemove = `
+      <a class="removerFeito" href="remove">x</a>
+      `
+      const TodosTopico = document.querySelectorAll('.topico')
+      TodosTopico.forEach((item) => {
+        console.log(item, item.currentTarget)
+        item.insertAdjacentHTML('afterbegin', htmlRemove)
+        const botaoRemove = document.querySelectorAll('.removerFeito')
+        const itemTarget = item.currentTarget
+        botaoRemove.forEach((botoes) => {
+          botoes.addEventListener('click', (q) => {
+            q.preventDefault()
+            item.remove()
+            DeletarBanco(item)
+        })})})
+        }}, 900)}
+        
 //w
 intervalo2 = setInterval(() => {
   const pagina = document.querySelector('#app')
