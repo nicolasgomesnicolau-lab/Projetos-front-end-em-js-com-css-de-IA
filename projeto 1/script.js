@@ -627,11 +627,13 @@ intervalo2 = setInterval(() => {
                       TodosTopico.forEach((item) => {
                         console.log(item, item.currentTarget)
                         item.insertAdjacentHTML('beforeend', htmlRemove)
-                        const botaoRemove = document.querySelector('.removerFeito')
+                        const botaoRemove = document.querySelectorAll('.removerFeito')
                         const itemTarget = item.currentTarget
-                        botaoRemove.addEventListener('click', (e) => {  
-                          e.preventDefault(), item.remove()
-                        })
+                        botaoRemove.forEach((botoes) => {
+                          botoes.addEventListener('click', (q) => {
+                            q.preventDefault()
+                            item.remove()
+                          })})
                       })
                     })
                   }
