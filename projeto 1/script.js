@@ -59,7 +59,7 @@ const rotas = {
     </div>
   </section>
   `,
-  "/#/prazos": `
+  "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/prazos": `
   <section class="page-content">
     <h1>Prazos e Agendas</h1>
     <div class="prazos-evento">
@@ -80,7 +80,7 @@ const rotas = {
     </div>
   </section>
   `,
-  "/#/pomodoro": `
+  "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/pomodoro": `
   <section class="page-content">
     <h1>Pomodoro</h1>
     <div class="pomodoro">
@@ -144,7 +144,7 @@ const supaURL = 'https://zqcrznpfuiqbrahqqauh.supabase.co'
 
 const supa = supabase.createClient(supaURL, supakey)
 
-async function login() {
+async function login() {                       ////////////////////////fazer com local storage pra F5
   btnLogin.addEventListener('click', (e) => {
     //btnLogin.classList.add('ativo')
     console.log(e.currentTarget)
@@ -176,6 +176,7 @@ async function login() {
     console.log("Conta criada com sucesso!", data.user)
     alert("Cadastro realizado! Verifique seu e-mail se o Supabase exigir confirmação.")
     usuarioValor = `${inputGmail.value}, ${inputSenha.value}`
+    localStorage.setItem('logado', 'usuarioLogado')
   })
 }
 login()
@@ -473,7 +474,7 @@ const logadadissimo = `
 `
 intervalo2 = setInterval(() => {
   const pagina = document.querySelector('#app')
-  if (usuarioValor) {
+  if (usuarioValor || localStorage.getItem('logado')) {
     console.log(usuarioValor, 'nicolaaaaaaaaaauuuu43434342424243')
     pagina.innerHTML = logadadissimo
     clearInterval(intervalo2)
@@ -729,7 +730,7 @@ intervalo2 = setInterval(() => {
             })
             }})
           }})}
-      if (caminho === "/#/pomodoro") {
+      if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/pomodoro") {
         console.log('pomodorissimoooooooooooooo')
         const botoesFoco = document.querySelectorAll('.ciclos a')
         let tempoDescanso = 0
@@ -833,7 +834,7 @@ intervalo2 = setInterval(() => {
           })
         })
       } //COLOCAR AGENDA NO BANCO,        PEGAR ID de AGENDA, pra on conlit. TOPICO DOS FEITOS PRA CONTEUDO. e section do topico. e usuario nas agendas
-      if (caminho === '/#/prazos') {
+      if (caminho === 'https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/prazos') {
         buscarAgenda()
         const TodasOpcao = document.querySelectorAll('.agenda-opcao')
         const opcaoEvento = document.querySelector('#evento')
