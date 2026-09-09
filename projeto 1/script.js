@@ -351,7 +351,7 @@ async function buscarAgenda() {
 async function DeletarBanco(Identificador) {
   const identificarDiv = Identificador.id || Identificador.classList
   const {data, error} = await supa
-  .from(`${identificarDiv}`)
+  .from('topico')
   .delete()
   .eq('id', identificarDiv)
   if (error) [
@@ -626,7 +626,7 @@ intervalo2 = setInterval(() => {
                       const TodosTopico = document.querySelectorAll('.topico')
                       TodosTopico.forEach((item) => {
                         console.log(item, item.currentTarget)
-                        item.insertAdjacentHTML('beforeend', htmlRemove)
+                        item.insertAdjacentHTML('afterbegin', htmlRemove)
                         const botaoRemove = document.querySelectorAll('.removerFeito')
                         const itemTarget = item.currentTarget
                         botaoRemove.forEach((botoes) => {
