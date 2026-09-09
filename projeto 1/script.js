@@ -354,11 +354,11 @@ async function DeletarBanco(Identificador) {
   .from('topicos')
   .delete()
   .eq('id', identificarDiv)
-  if (error) [
+  if (error) {
     alert('NAO deu pra remover', error)
-  ]
+  }
   if (data) {
-    console.log('REMOVIDO')
+    console.log(`foi removido do banco de dados o item ${identificarDiv}`)
   }
 }
 
@@ -501,7 +501,7 @@ intervalo2 = setInterval(() => {
         const topicoFeitos = document.querySelector('.topicos-feitos')
         intervaloRemove = setInterval(() => {
           if (topicoFeitos.childElementCount > 0) {
-            clearInterval(intervaloRemove)
+            //clearInterval(intervaloRemove)
             const htmlRemove = `
             <a class="removerFeito" href="remove">x</a>
             `
@@ -872,6 +872,27 @@ intervalo2 = setInterval(() => {
       } //COLOCAR AGENDA NO BANCO,        PEGAR ID de AGENDA, pra on conlit. TOPICO DOS FEITOS PRA CONTEUDO. e section do topico. e usuario nas agendas
       if (caminho === 'https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/prazos') {
         buscarAgenda()
+        const agendaFeita = document.querySelector('.agendas-feita')
+        intervaloRemove = setInterval(() => {
+          if (topicoFeitos.childElementCount > 0) {
+            //clearInterval(intervaloRemove)
+            const htmlRemove = `
+            <a class="removerFeito" href="remove">x</a>
+            `
+            const TodosTopico = document.querySelectorAll('div[classs^="agenda-"]')
+            TodosTopico.forEach((item) => {
+              console.log(item)
+              item.insertAdjacentHTML('afterbegin', htmlRemove)
+              const botaoRemove = document.querySelectorAll('.removerFeito')
+              const itemTarget = item.currentTarget
+              botaoRemove.forEach((botoes) => {
+                botoes.addEventListener('click', (q) => {
+                  q.preventDefault()
+                  item.remove()
+                  DeletarBanco(item)
+              })})})
+              }
+            }, 900)
         const TodasOpcao = document.querySelectorAll('.agenda-opcao')
         const opcaoEvento = document.querySelector('#evento')
         const opcaoPrazo = document.querySelector('#prazo')
