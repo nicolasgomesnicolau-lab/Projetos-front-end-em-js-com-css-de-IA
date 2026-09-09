@@ -671,7 +671,6 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
-                      location.reload();
                     })
                   }
                   if (filtroBtn === 'definicoes') {
@@ -721,7 +720,6 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
-                      location.reload();
                   })}
                   if (filtroBtn === 'anotacoes') {
                     notesAtivo = true
@@ -764,7 +762,6 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
-                      location.reload();
                   })}}
                 //como seria cada item?
                 //roteiro de estudos.. checklist com links(ou plataformas)
@@ -1114,7 +1111,6 @@ intervalo2 = setInterval(() => {
                     terminou = false         /////////////////// -------------------------------------aqui
                     let SectionAgenda = document.querySelector(`.agenda-${inputNomeP.replaceAll(' ', '')}`)
                     addAgendaSupa(SectionAgenda)
-                    location.reload();
                     } else {
                       const htmlForm = document.querySelector('.opcao-select')
                       htmlForm.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">voce precisa colocar um titulo</div>')
@@ -1254,7 +1250,6 @@ intervalo2 = setInterval(() => {
                     terminou = false         /////////////////// -------------------------------------aqui
                     let SectionAgenda = document.querySelector(`.agenda-${NomeAgenda.replaceAll(' ', '')}`)
                     addAgendaSupa(SectionAgenda)
-                    location.reload();
                   } else {sectionAgenda.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">vc ainda n marcou todas opcoes</div>')}
                 })
               }}
