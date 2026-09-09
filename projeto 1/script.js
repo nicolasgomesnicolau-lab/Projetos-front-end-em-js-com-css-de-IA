@@ -480,7 +480,7 @@ intervalo2 = setInterval(() => {
     function carregarPagina(caminho) {
       const path = rotas[caminho] || rotas["404"]
       pagina.innerHTML = path //no if configurar continuar(s/n) antes de excluir
-      if (caminho === "/#/assuntos") {
+      if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/assuntos") {
         buscarDadosSupa()
         console.log(JSON.parse(localStorage.getItem('topicos')))
         let SelecionaOpcao = true
