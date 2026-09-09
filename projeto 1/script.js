@@ -357,8 +357,10 @@ async function DeletarBanco(Identificador) {
   if (error) {
     alert('NAO deu pra remover', error)
   }
-  if (data) {
-    console.log(`foi removido do banco de dados o item ${identificarDiv}`)
+  if (data && data.length > 0) {
+    console.log(`Foi removido do banco de dados o item:`, data);
+  } else {
+    console.log('Aviso: O comando rodou, mas nenhum registro com esse ID foi encontrado na tabela.');
   }
 }
 
@@ -502,7 +504,7 @@ function botaoRemoveAgenda() {
       TodosTopico.forEach((item) => {
         console.log(item)
         item.insertAdjacentHTML('afterbegin', htmlRemove)
-        const botaoRemove = document.querySelectorAll('.removerFeito')
+        const botaoRemove = item.querySelector('.removerFeito')
         const itemTarget = item.currentTarget
         botaoRemove.forEach((botoes) => {
           botoes.addEventListener('click', (q) => {
@@ -526,7 +528,7 @@ function BotaoRemoveTopicos() {
       TodosTopico.forEach((item) => {
         console.log(item, item.currentTarget)
         item.insertAdjacentHTML('afterbegin', htmlRemove)
-        const botaoRemove = document.querySelectorAll('.removerFeito')
+        const botaoRemove = item.querySelector('.removerFeito')
         const itemTarget = item.currentTarget
         botaoRemove.forEach((botoes) => {
           botoes.addEventListener('click', (q) => {
