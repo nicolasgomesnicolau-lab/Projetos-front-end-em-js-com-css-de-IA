@@ -499,7 +499,7 @@ intervalo2 = setInterval(() => {
       if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/assuntos") {
         buscarDadosSupa()
         const topicoFeitos = document.querySelector('.topicos-feitos')
-        intervaloRemove(() => {
+        intervaloRemove = setInterval(() => {
           if (topicoFeitos.childElementCount > 0) {
             clearInterval(intervaloRemove)
             const htmlRemove = `
