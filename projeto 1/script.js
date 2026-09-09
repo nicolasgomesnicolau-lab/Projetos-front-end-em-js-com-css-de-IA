@@ -38,7 +38,7 @@
 
 let aviso = true
 const rotas = {
-  "/#/": `
+  "/": `
   <section class="page-content">
     <h1>Home</h1>
   </section>
