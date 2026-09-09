@@ -623,13 +623,15 @@ intervalo2 = setInterval(() => {
                       const htmlRemove = `
                       <a class="removerFeito" href="remove">x</a>
                       `
-                      //const botaoRemove = document.querySelector('.removerFeito')
                       const TodosTopico = document.querySelectorAll('.topico')
                       TodosTopico.forEach((item) => {
+                        console.log('testando oBOTAO REMOVEEEEEEEE')
                         item.insertAdjacentHTML('beforebegin', botaoRemove)
-                        const botaoRemove = document.querySelector('.removerFeito')
+                        const botaoRemove = topicoElemento.previousElementSibling
                         const itemTarget = item.currentTarget
-                        botaoRemove.addEventListener('click', (e) => {e.preventDefault(), itemTarget.remove()})
+                        botaoRemove.addEventListener('click', (e) => {  
+                          e.preventDefault(), item.remove()
+                        })
                       })
                     })
                   }
