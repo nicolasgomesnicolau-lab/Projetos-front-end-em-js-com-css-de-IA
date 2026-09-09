@@ -43,7 +43,7 @@ const rotas = {
     <h1>Home</h1>
   </section>
   `,
-  "/#/assuntos": `
+  "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/assuntos": `
   <section class="page-content">
     <h1>Topicos</h1>
     <div class="assuntos">
