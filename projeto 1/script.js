@@ -599,7 +599,7 @@ intervalo2 = setInterval(() => {
           formT.addEventListener('submit', (e) => {
             e.preventDefault()
             const inputado = document.querySelector('#Top')
-            const topic = inputado.value.replaceAll(' ', '')
+            const topic = inputado.value.replaceAll(' ', '_')
             console.log(topic)
             const topicosFeito = document.querySelector('.topicos-feitos')
             novoDiv = topicosFeito.appendChild(document.createElement('div')) /////////aquiiiiiiiiiiiiiiiiiiiiiiii
@@ -688,6 +688,7 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
+                      BotaoRemoveTopicos()
                     })
                   }
                   if (filtroBtn === 'definicoes') {
@@ -737,6 +738,7 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
+                      BotaoRemoveTopicos()
                   })}
                   if (filtroBtn === 'anotacoes') {
                     notesAtivo = true
@@ -779,6 +781,7 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
+                      BotaoRemoveTopicos()
                   })}}
                 //como seria cada item?
                 //roteiro de estudos.. checklist com links(ou plataformas)
@@ -1116,7 +1119,7 @@ intervalo2 = setInterval(() => {
                     sectionform.remove()
                     const sectionFeitos = document.querySelector('.agendas-feita')
                     const divPrazo = `
-                    <div class="agenda-${inputNomeP.replaceAll(' ', '')}">
+                    <div class="agenda-${inputNomeP.replaceAll(' ', '_')}">
                       <h2>${inputNomeP}</h2>
                       <section class="prazo-feito Agenda-Prazo">
                         <div>data inicial: dia ${diasMarcados[0]} do mes ${diasMarcados[1]}</div>
@@ -1126,8 +1129,9 @@ intervalo2 = setInterval(() => {
                     `
                     sectionFeitos.insertAdjacentHTML('beforeend', divPrazo)
                     terminou = false         /////////////////// -------------------------------------aqui
-                    let SectionAgenda = document.querySelector(`.agenda-${inputNomeP.replaceAll(' ', '')}`)
+                    let SectionAgenda = document.querySelector(`.agenda-${inputNomeP.replaceAll(' ', '_')}`)
                     addAgendaSupa(SectionAgenda)
+                    botaoRemoveAgenda()
                     } else {
                       const htmlForm = document.querySelector('.opcao-select')
                       htmlForm.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">voce precisa colocar um titulo</div>')
@@ -1254,7 +1258,7 @@ intervalo2 = setInterval(() => {
                     const MesAgenda = AgendaValor[1]
                     console.log(AgendaValor)
                     const divAgenda = `
-                      <div class="agenda-${NomeAgenda.replaceAll(' ', '')}">
+                      <div class="agenda-${NomeAgenda.replaceAll(' ', '_')}">
                         <h2>${NomeAgenda}</h2>
                         <section class="Agenda-feito">
                           <div>data do ${NomeAgenda} é dia: ${DiaAgenda} do mes ${MesAgenda}</div>
@@ -1265,8 +1269,9 @@ intervalo2 = setInterval(() => {
                     sectionAgenda.remove()
                     sectionFeitos.insertAdjacentHTML('beforeend', divAgenda)
                     terminou = false         /////////////////// -------------------------------------aqui
-                    let SectionAgenda = document.querySelector(`.agenda-${NomeAgenda.replaceAll(' ', '')}`)
+                    let SectionAgenda = document.querySelector(`.agenda-${NomeAgenda.replaceAll(' ', '_')}`)
                     addAgendaSupa(SectionAgenda)
+                    botaoRemoveAgenda()
                   } else {sectionAgenda.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">vc ainda n marcou todas opcoes</div>')}
                 })
               }}
