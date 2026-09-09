@@ -633,6 +633,7 @@ intervalo2 = setInterval(() => {
                           botoes.addEventListener('click', (q) => {
                             q.preventDefault()
                             item.remove()
+                            DeletarBanco(item)
                           })})
                       })
                     })
