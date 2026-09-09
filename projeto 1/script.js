@@ -602,7 +602,6 @@ intervalo2 = setInterval(() => {
                       console.log(inputRoteiro_p)
                       const conteudo_Roteiro = `
                       <div class="conteudo-roteiro">
-                      <a class="removerFeito" href="remove">x</a>
                       <p>${inputRoteiro_O.value}</p> -> <p>${inputRoteiro_p.value}</p>
                       </div>
                       `
@@ -621,10 +620,16 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
-                      const botaoRemove = document.querySelector('.removerFeito')
-                      botaoRemove.addEventListener('click', (e) => {
-                        e.preventDefault()
-                        topicoAtual.remove()
+                      const htmlRemove = `
+                      <a class="removerFeito" href="remove">x</a>
+                      `
+                      //const botaoRemove = document.querySelector('.removerFeito')
+                      const TodosTopico = document.querySelectorAll('.topico')
+                      TodosTopico.forEach((item) => {
+                        item.insertAdjacentHTML('beforebegin', botaoRemove)
+                        const botaoRemove = document.querySelector('.removerFeito')
+                        const itemTarget = item.currentTarget
+                        botaoRemove.addEventListener('click', (e) => {e.preventDefault(), itemTarget.remove()})
                       })
                     })
                   }
