@@ -625,8 +625,8 @@ intervalo2 = setInterval(() => {
                       `
                       const TodosTopico = document.querySelectorAll('.topico')
                       TodosTopico.forEach((item) => {
-                        console.log('testando oBOTAO REMOVEEEEEEEE')
-                        item.insertAdjacentHTML('beforebegin', htmlRemove)
+                        console.log(item, item.currentTarget)
+                        item.insertAdjacentHTML('beforeend', htmlRemove)
                         const botaoRemove = document.querySelector('.removerFeito')
                         const itemTarget = item.currentTarget
                         botaoRemove.addEventListener('click', (e) => {  
