@@ -348,6 +348,21 @@ async function buscarAgenda() {
   }
 }
 
+async function DeletarBanco(Identificador) {
+  const identificarDiv = Identificador.id || Identificador.classList
+  const {data, error} = await supa
+  .from(`${identificarDiv}`)
+  .delete()
+  .eq('id', identificarDiv)
+  if (error) [
+    alert('NAO deu pra remover', error)
+  ]
+  if (data) {
+    console.log('REMOVIDO')
+  }
+}
+
+
 /////////////////////////////////////////////////////////////////////--------------------- AGEBDAAAAAAAAAAAAAAAAAA
 
 /////////////////////////////colocar nos headres
@@ -587,6 +602,7 @@ intervalo2 = setInterval(() => {
                       console.log(inputRoteiro_p)
                       const conteudo_Roteiro = `
                       <div class="conteudo-roteiro">
+                      <a class="removerFeito" href="remove">x</a>
                       <p>${inputRoteiro_O.value}</p> -> <p>${inputRoteiro_p.value}</p>
                       </div>
                       `
@@ -605,6 +621,11 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
+                      const botaoRemove = document.querySelector('.removerFeito')
+                      botaoRemove.addEventListener('click', (e) => {
+                        e.preventDefault()
+                        topicoAtual.remove()
+                      })
                     })
                   }
                   if (filtroBtn === 'definicoes') {
