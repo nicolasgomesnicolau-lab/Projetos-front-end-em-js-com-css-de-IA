@@ -490,13 +490,15 @@ const logadadissimo = `
 
 function botaoRemoveAgenda() {
   const agendaFeita = document.querySelector('.agendas-feita')
+  const botaoRemoverAntes = document.querySelector('.removerFeito')
+  if (botaoRemoverAntes) {botaoRemoverAntes.remove()}
   intervaloRemove = setInterval(() => {
     if (agendaFeita.childElementCount > 0) {
       clearInterval(intervaloRemove)
       const htmlRemove = `
       <a class="removerFeito" href="remove">x</a>
       `
-      const TodosTopico = document.querySelectorAll('div[classs^="agenda-"]')
+      const TodosTopico = document.querySelectorAll('div[class^="agenda-"]')
       TodosTopico.forEach((item) => {
         console.log(item)
         item.insertAdjacentHTML('afterbegin', htmlRemove)
@@ -512,6 +514,8 @@ function botaoRemoveAgenda() {
 
 function BotaoRemoveTopicos() {
   const topicoFeitos = document.querySelector('.topicos-feitos')
+  const botaoRemoverAntes = document.querySelector('.removerFeito')
+  if (botaoRemoverAntes) {botaoRemoverAntes.remove()}
   intervaloRemove = setInterval(() => {
     if (topicoFeitos.childElementCount > 0) {
       clearInterval(intervaloRemove)
