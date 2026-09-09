@@ -349,19 +349,34 @@ async function buscarAgenda() {
 }
 
 async function DeletarBanco(Identificador) {
-  const identificarDiv = Identificador.id || Identificador.classList
+  const identificarDiv = Identificador.id || Identificador.classList[0] || Identificador
+  if (Identificador.id) {
+    const {data, error} = await supa
+    .from('topicos')
+    .delete()
+    .eq('id', identificarDiv)
+    if (error) {
+      alert('NAO deu pra remover', error)
+    }
+    if (data && data.length > 0) {
+      console.log(`Foi removido do banco de dados o item:`, data);
+    } else {
+      console.log('Aviso: O comando rodou, mas nenhum registro com esse ID foi encontrado na tabela.');
+    }
+} else {
   const {data, error} = await supa
-  .from('topicos')
-  .delete()
-  .eq('id', identificarDiv)
-  if (error) {
-    alert('NAO deu pra remover', error)
-  }
-  if (data && data.length > 0) {
-    console.log(`Foi removido do banco de dados o item:`, data);
-  } else {
-    console.log('Aviso: O comando rodou, mas nenhum registro com esse ID foi encontrado na tabela.');
-  }
+    .from('agendas')
+    .delete()
+    .eq('id', identificarDiv)
+    if (error) {
+      alert('NAO deu pra remover', error)
+    }
+    if (data && data.length > 0) {
+      console.log(`Foi removido do banco de dados o item:`, data);
+    } else {
+      console.log('Aviso: O comando rodou, mas nenhum registro com esse ID foi encontrado na tabela.');
+    }
+}
 }
 
 
