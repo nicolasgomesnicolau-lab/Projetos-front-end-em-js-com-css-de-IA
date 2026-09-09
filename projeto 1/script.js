@@ -592,7 +592,7 @@ intervalo2 = setInterval(() => {
         if (SelecionaOpcao) {
           SelecionaOpcao = false
           let notesAtivo = false
-          sectionPai.insertAdjacentHTML('beforeend', inputT);
+          sectionPai.insertAdjacentHTML('beforebegin', inputT);
           const excluirformT = document.querySelector('.topico')
           //excluirformT.remove()
           const formT = document.querySelector('.form-T')
