@@ -506,12 +506,12 @@ function botaoRemoveAgenda() {
         item.insertAdjacentHTML('afterbegin', htmlRemove)
         const botaoRemove = item.querySelector('.removerFeito')
         const itemTarget = item.currentTarget
-        botaoRemove.forEach((botoes) => {
-          botoes.addEventListener('click', (q) => {
+          botaoRemove.addEventListener('click', (q) => {
             q.preventDefault()
             item.remove()
             DeletarBanco(item)
-        })})})
+          }
+)})
         }}, 900)}
 
 function BotaoRemoveTopicos() {
@@ -530,12 +530,12 @@ function BotaoRemoveTopicos() {
         item.insertAdjacentHTML('afterbegin', htmlRemove)
         const botaoRemove = item.querySelector('.removerFeito')
         const itemTarget = item.currentTarget
-        botaoRemove.forEach((botoes) => {
-          botoes.addEventListener('click', (q) => {
-            q.preventDefault()
-            item.remove()
-            DeletarBanco(item)
-        })})})
+        botaoRemove.addEventListener('click', (q) => {
+          q.preventDefault()
+          item.remove()
+          DeletarBanco(item)
+        }
+  )})
         }}, 900)}
         
 //w
