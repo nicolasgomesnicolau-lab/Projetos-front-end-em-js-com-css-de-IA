@@ -351,7 +351,7 @@ async function buscarAgenda() {
 async function DeletarBanco(Identificador) {
   const identificarDiv = Identificador.id || Identificador.classList
   const {data, error} = await supa
-  .from('topico')
+  .from('topicos')
   .delete()
   .eq('id', identificarDiv)
   if (error) [
