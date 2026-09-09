@@ -487,6 +487,49 @@ const logadadissimo = `
   </div>
 </section>
 `
+
+function botaoRemoveAgenda() {
+  const agendaFeita = document.querySelector('.agendas-feita')
+  if (agendaFeita.childElementCount > 0) {
+    clearInterval(intervaloRemove)
+    const htmlRemove = `
+    <a class="removerFeito" href="remove">x</a>
+    `
+    const TodosTopico = document.querySelectorAll('div[classs^="agenda-"]')
+    TodosTopico.forEach((item) => {
+      console.log(item)
+      item.insertAdjacentHTML('afterbegin', htmlRemove)
+      const botaoRemove = document.querySelectorAll('.removerFeito')
+      const itemTarget = item.currentTarget
+      botaoRemove.forEach((botoes) => {
+        botoes.addEventListener('click', (q) => {
+          q.preventDefault()
+          item.remove()
+          DeletarBanco(item)
+      })})})
+      }}
+
+function BotaoRemoveTopicos() {
+  const topicoFeitos = document.querySelector('.topicos-feitos')
+  if (topicoFeitos.childElementCount > 0) {
+    clearInterval(intervaloRemove)
+    const htmlRemove = `
+    <a class="removerFeito" href="remove">x</a>
+    `
+    const TodosTopico = document.querySelectorAll('.topico')
+    TodosTopico.forEach((item) => {
+      console.log(item, item.currentTarget)
+      item.insertAdjacentHTML('afterbegin', htmlRemove)
+      const botaoRemove = document.querySelectorAll('.removerFeito')
+      const itemTarget = item.currentTarget
+      botaoRemove.forEach((botoes) => {
+        botoes.addEventListener('click', (q) => {
+          q.preventDefault()
+          item.remove()
+          DeletarBanco(item)
+      })})})
+      }}
+//w
 intervalo2 = setInterval(() => {
   const pagina = document.querySelector('#app')
   if (usuarioValor || localStorage.getItem('logado')) {
@@ -498,27 +541,7 @@ intervalo2 = setInterval(() => {
       pagina.innerHTML = path //no if configurar continuar(s/n) antes de excluir
       if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/assuntos") {
         buscarDadosSupa()
-        const topicoFeitos = document.querySelector('.topicos-feitos')
-        intervaloRemove = setInterval(() => {
-          if (topicoFeitos.childElementCount > 0) {
-            //clearInterval(intervaloRemove)
-            const htmlRemove = `
-            <a class="removerFeito" href="remove">x</a>
-            `
-            const TodosTopico = document.querySelectorAll('.topico')
-            TodosTopico.forEach((item) => {
-              console.log(item, item.currentTarget)
-              item.insertAdjacentHTML('afterbegin', htmlRemove)
-              const botaoRemove = document.querySelectorAll('.removerFeito')
-              const itemTarget = item.currentTarget
-              botaoRemove.forEach((botoes) => {
-                botoes.addEventListener('click', (q) => {
-                  q.preventDefault()
-                  item.remove()
-                  DeletarBanco(item)
-              })})})
-              }
-            }, 900)
+        BotaoRemoveTopicos()
         console.log(JSON.parse(localStorage.getItem('topicos')))
         let SelecionaOpcao = true
         const assunto = document.querySelector('#addT')
@@ -641,6 +664,7 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
+                      BotaoRemoveTopicos()
                     })
                   }
                   if (filtroBtn === 'definicoes') {
@@ -690,6 +714,7 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
+                      BotaoRemoveTopicos()
                   })}
                   if (filtroBtn === 'anotacoes') {
                     notesAtivo = true
@@ -732,6 +757,7 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
+                      BotaoRemoveTopicos()
                   })}}
                 //como seria cada item?
                 //roteiro de estudos.. checklist com links(ou plataformas)
@@ -872,27 +898,7 @@ intervalo2 = setInterval(() => {
       } //COLOCAR AGENDA NO BANCO,        PEGAR ID de AGENDA, pra on conlit. TOPICO DOS FEITOS PRA CONTEUDO. e section do topico. e usuario nas agendas
       if (caminho === 'https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/prazos') {
         buscarAgenda()
-        const agendaFeita = document.querySelector('.agendas-feita')
-        intervaloRemove = setInterval(() => {
-          if (topicoFeitos.childElementCount > 0) {
-            //clearInterval(intervaloRemove)
-            const htmlRemove = `
-            <a class="removerFeito" href="remove">x</a>
-            `
-            const TodosTopico = document.querySelectorAll('div[classs^="agenda-"]')
-            TodosTopico.forEach((item) => {
-              console.log(item)
-              item.insertAdjacentHTML('afterbegin', htmlRemove)
-              const botaoRemove = document.querySelectorAll('.removerFeito')
-              const itemTarget = item.currentTarget
-              botaoRemove.forEach((botoes) => {
-                botoes.addEventListener('click', (q) => {
-                  q.preventDefault()
-                  item.remove()
-                  DeletarBanco(item)
-              })})})
-              }
-            }, 900)
+        botaoRemoveAgenda()
         const TodasOpcao = document.querySelectorAll('.agenda-opcao')
         const opcaoEvento = document.querySelector('#evento')
         const opcaoPrazo = document.querySelector('#prazo')
@@ -1101,6 +1107,7 @@ intervalo2 = setInterval(() => {
                     terminou = false         /////////////////// -------------------------------------aqui
                     let SectionAgenda = document.querySelector(`.agenda-${inputNomeP.replaceAll(' ', '')}`)
                     addAgendaSupa(SectionAgenda)
+                    botaoRemoveAgenda()
                     } else {
                       const htmlForm = document.querySelector('.opcao-select')
                       htmlForm.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">voce precisa colocar um titulo</div>')
@@ -1240,6 +1247,7 @@ intervalo2 = setInterval(() => {
                     terminou = false         /////////////////// -------------------------------------aqui
                     let SectionAgenda = document.querySelector(`.agenda-${NomeAgenda.replaceAll(' ', '')}`)
                     addAgendaSupa(SectionAgenda)
+                    botaoRemoveAgenda()
                   } else {sectionAgenda.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">vc ainda n marcou todas opcoes</div>')}
                 })
               }}
