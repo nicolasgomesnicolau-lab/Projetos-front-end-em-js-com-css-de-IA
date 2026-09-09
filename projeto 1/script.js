@@ -498,6 +498,24 @@ intervalo2 = setInterval(() => {
       pagina.innerHTML = path //no if configurar continuar(s/n) antes de excluir
       if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/assuntos") {
         buscarDadosSupa()
+        const topicoFeitos = document.querySelector('.topicos-feitos')
+        if (topicoFeitos.childElementCount > 0) {
+          const htmlRemove = `
+          <a class="removerFeito" href="remove">x</a>
+          `
+          const TodosTopico = document.querySelectorAll('.topico')
+          TodosTopico.forEach((item) => {
+            console.log(item, item.currentTarget)
+            item.insertAdjacentHTML('afterbegin', htmlRemove)
+            const botaoRemove = document.querySelectorAll('.removerFeito')
+            const itemTarget = item.currentTarget
+            botaoRemove.forEach((botoes) => {
+              botoes.addEventListener('click', (q) => {
+                q.preventDefault()
+                item.remove()
+                DeletarBanco(item)
+              })})})
+        }
         console.log(JSON.parse(localStorage.getItem('topicos')))
         let SelecionaOpcao = true
         const assunto = document.querySelector('#addT')
@@ -620,22 +638,6 @@ intervalo2 = setInterval(() => {
                       notesAtivo = false
                       adicionarLocal(topicoAtual)
                       dadosClientSupa(topicoAtual)
-                      const htmlRemove = `
-                      <a class="removerFeito" href="remove">x</a>
-                      `
-                      const TodosTopico = document.querySelectorAll('.topico')
-                      TodosTopico.forEach((item) => {
-                        console.log(item, item.currentTarget)
-                        item.insertAdjacentHTML('afterbegin', htmlRemove)
-                        const botaoRemove = document.querySelectorAll('.removerFeito')
-                        const itemTarget = item.currentTarget
-                        botaoRemove.forEach((botoes) => {
-                          botoes.addEventListener('click', (q) => {
-                            q.preventDefault()
-                            item.remove()
-                            DeletarBanco(item)
-                          })})
-                      })
                     })
                   }
                   if (filtroBtn === 'definicoes') {
