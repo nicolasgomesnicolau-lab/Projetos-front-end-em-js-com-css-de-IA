@@ -1,40 +1,13 @@
-//site de: ainda n sei
-//como estruturar html?
-
-//cada section pra h1, div se tiver h2 com p(dai teria q ter section)
-//nav pra abas
-//ul dps li pra botoes com a href
-
-//ul e li pra caso tenha varias imagens(slide ou opcoes com src=)
-//img pra imagens nos sections
-
-//dl, dt, dd pra FAQ
-
-//e div pra coisas com... descricao da descricao
-//tipo section é pra h1, mas o div vai ter h2 e o p(ou outra coisa)
-//do h2 tipo o contato mapa etc
-
-//ai class... vc bota em todo section e div e ul e h1 <---------
-
-//ai pra login ou submit vc usa o form
-//form vai ter label(class e conteudo) e o input(type, for, id, nome)
-//e o buttom(type=submit) com conteudo de enviar
-//ai vc da preventdefault no forms
-//da listener('submit')
-//e muda o conteudo no innerhtml do section
-//inclusive submit fica no forms
-//pra pegar informacao é no input, no caso vc pega o id(#nome).value
-
-//ai pra listas de opcoes (tipo com setinha pra baixo)
-//é um botao (li, a, ul, opcoes com li) com class obvio
-
-//h2 e P nos section(div)
-
-
-//tmb treinar usar localstorage como banco de dados
-
-//href é exclusivamente pra dar destino pra pagina ou rota
-//vc pode usar só submit ou só a tag a msm
+// Estrutura HTML que estou seguindo:
+// - section para cada h1; div para blocos com h2 + p dentro de uma section
+// - nav para abas, ul > li > a para botões
+// - ul e li quando há várias opções ou imagens
+// - dl, dt, dd para FAQ
+// - class em todo section, div e ul
+// - form com label + input (type, for, id, name) e button type="submit"
+// - no submit: preventDefault, listener('submit') e mudar o innerHTML do section
+// - para pegar o valor de um input: document.querySelector('#id').value
+// - href serve para dar destino à página ou rota
 
 let aviso = true
 const rotas = {
@@ -108,28 +81,8 @@ const rotas = {
     </div>
   `
 }
-//////////////         vendo local storage            ////////////////
-const ClassAssuntos = document.querySelector('.localstorage')
 
-let nomeDigitado = 'nicoleba parceiro'
-
-localStorage.setItem('usuario', nomeDigitado)
-const nomeSalvo = localStorage.getItem('usuario');
-
-const conteudoAssuntos = `
-<h2>📚 Assuntos</h2>
-<p>Organize os conteúdos que você precisa estudar os ${nomeSalvo}</p>
-`
-//ClassAssuntos.innerHTML = conteudoAssuntos
-
-//////// pegar e salvar conteudo dos TOPICOS FEITOS          /////////////////
-//fazer um objeto das coisas.
-
-//da pra guardar o HTML no localstorage se vc usar o ID dos divs
-//é só adicionar o topicoAtual        NO SETitem(), ai pra pegar vc pega pela key, mas como acumular?
-
-
-//adicionarLocal(topicoAtual)
+// ---------- Login e cadastro (Supabase Auth) ----------
 
 let logado = false
 let usuarioValor = 0
@@ -144,10 +97,9 @@ const supaURL = 'https://zqcrznpfuiqbrahqqauh.supabase.co'
 
 const supa = supabase.createClient(supaURL, supakey)
 
-async function login() {                       ////////////////////////fazer com local storage pra F5
+async function login() {
   btnLogin.addEventListener('click', (e) => {
     //btnLogin.classList.add('ativo')
-    console.log(e.currentTarget)
   })
   form_login.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -162,7 +114,6 @@ async function login() {                       ////////////////////////fazer com
     }
     const email = inputGmail.value
     const senha = inputSenha.value
-    console.log(inputGmail.value, inputSenha.value)
     const { data, error } = await supa.auth.signInWithPassword({
     email: email,
     password: senha,
@@ -204,14 +155,12 @@ async function cadastrar() {
   const sectionMain = document.querySelector('#app')
   btnCadastrar.addEventListener('click', (e) => {
     e.preventDefault()
-    console.log('opa vc clicou em cadastrar.')
     sectionMain.innerHTML = sectionCadastr
     const formCadastro = document.querySelector('.cadastrar-form')
     formCadastro.addEventListener('submit', async (e) => {
       e.preventDefault()
       const gmailCadastro = document.querySelector('#nome').value
       const SenhaCadastro = document.querySelector('#senha').value
-      console.log(gmailCadastro, SenhaCadastro)
       const {data, error} = await supa.auth.signUp({
         email: gmailCadastro,
         password: SenhaCadastro
@@ -232,10 +181,9 @@ async function cadastrar() {
 
 cadastrar()
 
-////////////////////testando supabase
+// ---------- Banco de dados: tópicos (Supabase) ----------
 
 async function dadosClientSupa(topicHtml) {
-  //intervaloL = setInterval(() => {if (usuarioValor) {console.log(usuarioValor, 'opaaaa'), clearInterval(intervaloL)}}, 500)     ////////////
   const { data: { user }, error: authError } = await supa.auth.getUser()
 
   if (authError || !user) {
@@ -258,7 +206,7 @@ async function dadosClientSupa(topicHtml) {
   else {
     console.log('sucesso', data)
   }
-} //dadosClientSupa(topicoAtual)
+}
 
 async function verConta() {
   const { data, error } = await supa
@@ -286,7 +234,6 @@ async function buscarDadosSupa() {
   console.error('Erro ao buscar:', error)
   } 
   else {
-  console.log('Dados encontrados:', data)
   data.forEach((item) => {
     const sectionTopicosfeito = document.querySelector('.topicos-feitos')
     sectionTopicosfeito.innerHTML += item.topico
@@ -294,7 +241,7 @@ async function buscarDadosSupa() {
   }
 }
 
-///////////////////////////////////////////////////////////////////////////// --------------------agenda
+// ---------- Banco de dados: agendas (Supabase) ----------
 
 async function addAgendaSupa(agendaHtml) {
   const {data: { user }, error: authError} = await supa.auth.getUser()
@@ -379,12 +326,9 @@ async function DeletarBanco(Identificador) {
 }
 }
 
+// ---------- localStorage: banco de dados do usuário ----------
+// dá pra guardar o HTML no localStorage usando o ID das divs como identificador
 
-/////////////////////////////////////////////////////////////////////--------------------- AGEBDAAAAAAAAAAAAAAAAAA
-
-/////////////////////////////colocar nos headres
-
-////////////localstorage BANCO DE DADOS DE USUARIO    ///////////////////
 localStorage.setItem('topicos', JSON.stringify([]))
 function adicionarLocal(Topics) {
   let pode = true
@@ -402,17 +346,12 @@ function adicionarLocal(Topics) {
   if (pode) {
     lista.push(novosValores)
   }
-  //localStorage.setItem('topicos', JSON.stringify(lista))
   if (!localStorage.getItem('topicos')) {
     localStorage.setItem('topicos', JSON.stringify([]))
 }
-  lista.forEach((item) => {
-    const limpa = 0
-    console.log(item.topico)
-  })
 }
 
-////////////localstorage BANCO DE DADOS DE USUARIO    ///////////////////
+// ---------- Pomodoro: alarme e cronômetro ----------
 
 let alarme = false
 let intervalo = null
@@ -440,7 +379,7 @@ function tocarAlarme() {
     audioCtx.close();
     repeticoes--;
     if (repeticoes > 0) {
-        setTimeout(dispararBipe, 200); // 3. Pausa de 200ms e chama o próximo bipe
+        setTimeout(dispararBipe, 200); // Pausa de 200ms e chama o próximo bipe
       }
     }, 500);
   }
@@ -453,7 +392,6 @@ function iniciarConometro(segundos) {
   intervalo = setInterval(() => {
     const minutos = Math.floor(segundos / 60)
     const segundosRestantes = segundos % 60
-    console.log(minutos, segundosRestantes)
     if (segundos > 0) {
     segundos--;
 
@@ -464,13 +402,13 @@ function iniciarConometro(segundos) {
   } else {
     clearInterval(intervalo)
     intervalo = null
-    console.log('tempo esgotado')
     tocarAlarme()
     alarme = true
   }
   }, 1000)
 }
-//iniciarConometro(20)
+
+// ---------- Página inicial (usuário logado) ----------
 
 const logadadissimo = `
 <section class="page-content home">
@@ -505,6 +443,8 @@ const logadadissimo = `
 </section>
 `
 
+// ---------- Botões de remover (agendas e tópicos) ----------
+
 function botaoRemoveAgenda() {
   const agendaFeita = document.querySelector('.agendas-feita')
   const botaoRemoverAntes = document.querySelectorAll('.removerFeito')
@@ -517,7 +457,6 @@ function botaoRemoveAgenda() {
       `
       const TodosTopico = document.querySelectorAll('div[class^="agenda-"]')
       TodosTopico.forEach((item) => {
-        console.log(item)
         item.insertAdjacentHTML('afterbegin', htmlRemove)
         const botaoRemove = item.querySelector('.removerFeito')
         const itemTarget = item.currentTarget
@@ -541,7 +480,6 @@ function BotaoRemoveTopicos() {
       `
       const TodosTopico = document.querySelectorAll('.topico')
       TodosTopico.forEach((item) => {
-        console.log(item, item.currentTarget)
         item.insertAdjacentHTML('afterbegin', htmlRemove)
         const botaoRemove = item.querySelector('.removerFeito')
         const itemTarget = item.currentTarget
@@ -552,21 +490,22 @@ function BotaoRemoveTopicos() {
         }
   )})
         }}, 900)}
-        
-//w
+
+// ---------- Rotas e páginas (só carrega depois do login) ----------
+
 intervalo2 = setInterval(() => {
   const pagina = document.querySelector('#app')
   if (usuarioValor || localStorage.getItem('logado')) {
-    console.log(usuarioValor, 'nicolaaaaaaaaaauuuu43434342424243')
     pagina.innerHTML = logadadissimo
     clearInterval(intervalo2)
     function carregarPagina(caminho) {
       const path = rotas[caminho] || rotas["404"]
-      pagina.innerHTML = path //no if configurar continuar(s/n) antes de excluir
+      pagina.innerHTML = path
+
+      // ----- Assuntos -----
       if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/assuntos") {
         buscarDadosSupa()
         BotaoRemoveTopicos()
-        console.log(JSON.parse(localStorage.getItem('topicos')))
         let SelecionaOpcao = true
         const assunto = document.querySelector('#addT')
         const finalizarNotes = `
@@ -594,15 +533,13 @@ intervalo2 = setInterval(() => {
           let notesAtivo = false
           sectionPai.insertAdjacentHTML('beforeend', inputT);
           const excluirformT = document.querySelector('.topico')
-          //excluirformT.remove()
           const formT = document.querySelector('.form-T')
           formT.addEventListener('submit', (e) => {
             e.preventDefault()
             const inputado = document.querySelector('#Top')
             const topic = inputado.value.replaceAll(' ', '_')
-            console.log(topic)
             const topicosFeito = document.querySelector('.topicos-feitos')
-            novoDiv = topicosFeito.appendChild(document.createElement('div')) /////////aquiiiiiiiiiiiiiiiiiiiiiiii
+            novoDiv = topicosFeito.appendChild(document.createElement('div'))
             novoDiv.classList.add('topico')
             novoDiv.textContent = topic
             novoDiv.id = `topico-${topic}`
@@ -621,26 +558,21 @@ intervalo2 = setInterval(() => {
             formT.parentElement.classList.add('excluir')
             const sectionFormT = document.querySelector('.excluir')
             sectionFormT.remove()
-            todosBtn1.forEach((item) => { ////////////////////
+            todosBtn1.forEach((item) => {
               const ClassItem = item.classList
               const filtroBtn = item.getAttribute('href')
               item.parentElement.id = `notes-${topic}`
               const idNote = document.querySelector(`#notes-${topic}`)
               item.addEventListener('click', (e) => {
                 e.preventDefault()
-                console.log(idTopico.id)
-                console.log(idNote.id)
                 topicoAtualId = idNote.id
                 const topicoAtual = item.closest('.topico')
-                console.log(topicoAtualId, 'aqui niCOLAAAAAAAAAAAAAS MATEUS AROWMADWASDWASD')
                 topof = topicoAtual.innerHTML
-                console.log(typeof(topof))
                 if (!notesAtivo) {
+                  // roteiro de estudos: checklist com links (ou plataformas)
                   if (filtroBtn === 'roteiro') {
                     notesAtivo = true
                     const opcaoSelct = item.getAttribute('href')
-                    console.log(opcaoSelct, 'nicolaaaaaaaaaaaaaaaaaaaaaaaaaaas')
-                    console.log(topicoAtual)
                     const anotacaoRoteiro = `
                     <section class="roteiro">
                       <h2>roteiro</h2>
@@ -666,15 +598,12 @@ intervalo2 = setInterval(() => {
                     form_roteiro.addEventListener('submit', (e) => {
                       e.preventDefault()
                       const divContent = document.querySelector('.topico')
-                      console.log(divContent, 'eeeeeeee')
-                      console.log(inputRoteiro_p)
                       const conteudo_Roteiro = `
                       <div class="conteudo-roteiro">
                       <p>${inputRoteiro_O.value}</p> -> <p>${inputRoteiro_p.value}</p>
                       </div>
                       `
-                      topicoAtual.insertAdjacentHTML('beforeend', conteudo_Roteiro)
-                      console.log(topicoAtual)})
+                      topicoAtual.insertAdjacentHTML('beforeend', conteudo_Roteiro)})
                     topicoAtual.insertAdjacentHTML('beforeend', finalizarNotes)
                     const Pronto = topicoAtual.querySelector('.terminar-tarefa')
                     Pronto.addEventListener('click', (btn) => {
@@ -691,9 +620,9 @@ intervalo2 = setInterval(() => {
                       BotaoRemoveTopicos()
                     })
                   }
+                  // definições: chave e valor
                   if (filtroBtn === 'definicoes') {
                     notesAtivo = true
-                    console.log('opa esse é o definicoes')
                     const anotacaodefinicoes = `
                     <section class="definicoes">
                       <h2>definicoes</h2>
@@ -740,9 +669,9 @@ intervalo2 = setInterval(() => {
                       dadosClientSupa(topicoAtual)
                       BotaoRemoveTopicos()
                   })}
+                  // anotações: espaço livre
                   if (filtroBtn === 'anotacoes') {
                     notesAtivo = true
-                    console.log('opa esse é o anotacoes')
                     const notes = `
                     <section class="anotacoes">
                       <h2>anotacoes</h2>
@@ -783,41 +712,13 @@ intervalo2 = setInterval(() => {
                       dadosClientSupa(topicoAtual)
                       BotaoRemoveTopicos()
                   })}}
-                //como seria cada item?
-                //roteiro de estudos.. checklist com links(ou plataformas)
-                //definicoes:chaves e valores
-                //anotacoes: espaço livre
-
-                //todos sao filhos do novoDiv deles(id dele)
-                //acho q os botoes precisam ter o id do novo
-                //tipo id-topic
-
-                //adicionado os botoes agr vamos definir
-                //todos precisam de forms, pra ADICIONAR
-                //e precisam de class tipo checklist(ativo)
-                //definicoes, class key, class valor
-                //anotacoes pode ser normal
-                //
-                //cada anotacao é um section dentro do div
-                //cada section tem o class roteiro e etc
-                //cada h2 e P la... talves deva funcionar como um faq
-                //cada h2 ta ativo ou n, e assuntos tmb
-                
-                //otimas noticias n tem CLASSES com nome dos tipos
-
-                //msm esquema, prevent no forms, com listener submit
-                //e resposta é no input(id) com variavel.value
-
-                //e os botoes de anotacoes tem q ter (atuvo) na parte de 
-                //adicionar e na parte de ver
-
-                //tem q ser filho... do topico né, do novo topido ID
               })
             })
             }})
           }})}
+
+      // ----- Pomodoro -----
       if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/pomodoro") {
-        console.log('pomodorissimoooooooooooooo')
         const botoesFoco = document.querySelectorAll('.ciclos a')
         let tempoDescanso = 0
         const botoesDescansoHtml = `
@@ -859,55 +760,40 @@ intervalo2 = setInterval(() => {
         const UlAtual = document.querySelector('.ciclos')
         const sectionOpcoes = document.querySelector('.opcoes-pomodoro')
         botoesFoco.forEach((item) => {
-          const hrefCiclo = item.getAttribute('href') //btn
-          console.log(hrefCiclo)
-          console.log(item)
+          const hrefCiclo = item.getAttribute('href')
           item.addEventListener('click', (e) => {
             e.preventDefault()
-            console.log(e.currentTarget)
             if (hrefCiclo) {
               const min = item.innerHTML
-              console.log(`aqui é ${min} amigo`)
               const tempoCiclo = parseInt(min) * 60
-              console.log(tempoCiclo)
               UlAtual.classList.add('selecionado')
-              item.classList.add('ativo') //////////opcao selecionada
-              console.log(UlAtual.classList)
-              console.log(item.classList)
+              item.classList.add('ativo')
               sectionOpcoes.insertAdjacentHTML('beforeend', botoesDescansoHtml)
               const descansoOP = document.querySelectorAll('.descanso a')
               descansoOP.forEach((item) => {
-                console.log(item)
                 item.addEventListener('click', (e) => {
                   e.preventDefault()
-                  console.log(item) //opcao selecionada
-                  const opSelect = item.getAttribute('href') //btn
-                  console.log(opSelect)
+                  const opSelect = item.getAttribute('href')
                   if (opSelect) {
                     const minDescanso = item.innerHTML
-                    console.log(minDescanso)
-                    console.log(`esse aqui é ${minDescanso} pae`)
                     tempoDescanso = parseInt(minDescanso) * 60
                     sectionInteira.innerHTML = telaPomodoroCiclo
-                    iniciarConometro(tempoCiclo) //tempoCiclo
+                    iniciarConometro(tempoCiclo)
                   }
                   const vigia = setInterval(() => {
                     if (alarme === true) {
-                      console.log("O IF FORA DA FUNÇÃO PEGOU: O tempo acabou agora!");
                       clearInterval(vigia); // Para o vigia para não ficar rodando para sempre
                       sectionInteira.innerHTML = pomodoroFim
                       const submitFim = document.querySelector('.fim-ciclo')
                       submitFim.addEventListener('submit', (e) => {
                         e.preventDefault()
                         alarme = false
-                        console.log('opaaaaaaaaaaaaaaaaa')
                         sectionInteira.innerHTML = telaPomodoroDescanso
                         setTimeout(() => {
                           alarme = false;
-                          iniciarConometro(tempoDescanso); //tempoDescanso
+                          iniciarConometro(tempoDescanso);
                         }, 10);
                         if (window.location.pathname !== "/#/pomodoro") {
-                          console.log('opaaaaaaaaaaaaaaaaaa')
                           clearInterval(intervalo)
                           intervalo = null
                         }
@@ -919,7 +805,9 @@ intervalo2 = setInterval(() => {
             }
           })
         })
-      } //COLOCAR AGENDA NO BANCO,        PEGAR ID de AGENDA, pra on conlit. TOPICO DOS FEITOS PRA CONTEUDO. e section do topico. e usuario nas agendas
+      }
+
+      // ----- Prazos e agendas -----
       if (caminho === 'https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/prazos') {
         buscarAgenda()
         botaoRemoveAgenda()
@@ -1046,10 +934,8 @@ intervalo2 = setInterval(() => {
         let terminou = false
         TodasOpcao.forEach((item) => {
           const btnItem = item.getAttribute('href')
-          console.log(item)
           item.addEventListener('click', (e) => {
             e.preventDefault()
-            console.log(item.id)
             if (!terminou) {
               if (item.id === 'prazo') {
                 terminou = true
@@ -1062,21 +948,15 @@ intervalo2 = setInterval(() => {
                 let clickatual = 0
                 let clickatualFeito = 0
                 let diasMarcados = []
-                console.log('aqui é o prazo parceiro')
                 sectionBotoes.insertAdjacentHTML('beforeend', HTMLprazo)
                 const formPrazo = document.querySelector('.opcao-select')
                 const sectionFormsPrazo = document.querySelector('.marcar-prazo')
                 const botoesP = document.querySelectorAll('.data')
                 botoesP.forEach((item) => {
-                  console.log(item)
                   item.addEventListener('click', (e) => {
                     e.preventDefault()
                     const alvo = e.currentTarget
-                    console.log(e.currentTarget, 'vc clicou em algo')
-                    console.log(alvo.classList)
                     const [primeiraClasse, segundaClasse, terceiraClasse] = [...alvo.classList]
-                    console.log(primeiraClasse, segundaClasse)
-                    console.log(clickatualFeito)
                     if (clickatual !== segundaClasse && clickatualFeito < 2) {
                       alvo.classList.add('ativo') 
                       clickatual = segundaClasse
@@ -1084,10 +964,10 @@ intervalo2 = setInterval(() => {
                     } 
                     else {clickatualFeito = 1, botoesP.forEach((item) => {item.classList.remove('ativo')}), alvo.classList.add('ativo')}
 
-                    if (alvo.classList.contains('dia') && alvo.classList.contains('inicio')) {console.log('vc clicou no dia da classe inicio', alvo.textContent), diasMarcados[0] = alvo.textContent, diaIn = true}
-                    if (alvo.classList.contains('mes') && alvo.classList.contains('inicio')) {console.log('vc clicou no mes da classe inicio', alvo.textContent), diasMarcados[1] = alvo.textContent, mesIn = true}
-                    if (alvo.classList.contains('dia') && alvo.classList.contains('fim')) {console.log('vc clicou no mes da classe fim', alvo.textContent), diasMarcados[2] = alvo.textContent, diaFim = true}
-                    if (alvo.classList.contains('mes') && alvo.classList.contains('fim')) {console.log('vc clicou no mes da classe fim', alvo.textContent), diasMarcados[3] = alvo.textContent, mesFim = true}
+                    if (alvo.classList.contains('dia') && alvo.classList.contains('inicio')) {diasMarcados[0] = alvo.textContent, diaIn = true}
+                    if (alvo.classList.contains('mes') && alvo.classList.contains('inicio')) {diasMarcados[1] = alvo.textContent, mesIn = true}
+                    if (alvo.classList.contains('dia') && alvo.classList.contains('fim')) {diasMarcados[2] = alvo.textContent, diaFim = true}
+                    if (alvo.classList.contains('mes') && alvo.classList.contains('fim')) {diasMarcados[3] = alvo.textContent, mesFim = true}
                     if (diaIn && mesIn && !ParaAlertaIn) {
                       let intervalAlert = setInterval(() => {
                         alert('data de inicio marcada'), clearInterval(intervalAlert)
@@ -1113,8 +993,6 @@ intervalo2 = setInterval(() => {
                   const inputNomeP = document.querySelector('#nomeP').value
                   if (diaIn && mesIn && diaFim && mesFim) {
                   const sectionform = document.querySelector('.marcar-prazo')
-                  console.log('submitouuuuuuuu')
-                  console.log(`nome da agenda:${inputNomeP} começa dia ${diasMarcados[0]} no mes ${diasMarcados[1]}, até o dia ${diasMarcados[2]} no mes ${diasMarcados[3]}`)
                   if (inputNomeP.length > 0) {
                     sectionform.remove()
                     const sectionFeitos = document.querySelector('.agendas-feita')
@@ -1128,7 +1006,7 @@ intervalo2 = setInterval(() => {
                     </div>
                     `
                     sectionFeitos.insertAdjacentHTML('beforeend', divPrazo)
-                    terminou = false         /////////////////// -------------------------------------aqui
+                    terminou = false
                     let SectionAgenda = document.querySelector(`.agenda-${inputNomeP.replaceAll(' ', '_')}`)
                     addAgendaSupa(SectionAgenda)
                     botaoRemoveAgenda()
@@ -1136,7 +1014,6 @@ intervalo2 = setInterval(() => {
                       const htmlForm = document.querySelector('.opcao-select')
                       htmlForm.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">voce precisa colocar um titulo</div>')
                     }} else {
-                    console.log('vc ainda n escolheu as opcoes')
                     const htmlForm = document.querySelector('.opcao-select')
                     htmlForm.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">vc ainda n escolheu as opcoes</div>')
                     const divAlerta = document.querySelector('.aviso-nao-marcado')
@@ -1145,7 +1022,6 @@ intervalo2 = setInterval(() => {
               }
               if (item.id === 'evento') {
                 terminou = true
-                console.log('aqui é o evento parceiro')
                 const HTMLagenda = `
                 <section class="marcar-Agenda">
                   <h2>Informe a agenda do evento</h2>
@@ -1218,13 +1094,10 @@ intervalo2 = setInterval(() => {
                 const botoesAgnda = document.querySelectorAll('.data')
                 const htmlFormA = document.querySelector('.opcao-select')
                 botoesAgnda.forEach((item) => {
-                  //console.log(item)
-                  item.addEventListener('click', (a) => { //clickatualAg
+                  item.addEventListener('click', (a) => {
                     a.preventDefault()
                     const aTarget = a.currentTarget
-                    console.log(a, aTarget.classList)
                     const [primeiraClasseA, segundaClasseA, terceiraClasseA] = [...aTarget.classList]
-                    console.log(segundaClasseA, terceiraClasseA)
                     if (clickatualAg !== segundaClasseA && clicksatuaFeito < 2) {
                       aTarget.classList.add('ativo')
                       clickatualAg = segundaClasseA
@@ -1233,30 +1106,16 @@ intervalo2 = setInterval(() => {
                     else {clicksatuaFeito = 1, botoesAgnda.forEach((item) => {item.classList.remove('ativo')}), aTarget.classList.add('ativo')}
                     if (aTarget.classList.contains('dia')) {DiaAgendaF = true, AgendaValor[0] = aTarget.textContent}
                     if (aTarget.classList.contains('mes')) {MesAgendaF = true, AgendaValor[1] = aTarget.textContent}
-                    /* const alvo = e.currentTarget
-                    console.log(e.currentTarget, 'vc clicou em algo')
-                    console.log(alvo.classList)
-                    const [primeiraClasse, segundaClasse, terceiraClasse] = [...alvo.classList]
-                    console.log(primeiraClasse, segundaClasse)
-                    console.log(clickatualFeito)
-                    if (clickatual !== segundaClasse && clickatualFeito < 2) {
-                        alvo.classList.add('ativo') 
-                        clickatual = segundaClasse
-                        clickatualFeito += 1
-                      } 
-                    else {clickatualFeito = 1, botoesP.forEach((item) => {item.classList.remove('ativo')}), alvo.classList.add('ativo')} */
                   })
                 })
                 htmlFormA.addEventListener('submit', (e) => {
                   e.preventDefault()
                   const NomeAgenda = document.querySelector('#nomeA').value
                   const sectionAgenda = document.querySelector('.marcar-Agenda')
-                  console.log('FILHO DA PUTAAAAAAAAAAAAAAA', document.querySelector('.marcar-Agenda').currentTarget)
                   const sectionFeitos = document.querySelector('.agendas-feita')
                   if (DiaAgendaF && MesAgendaF && NomeAgenda.length > 0) {
                     const DiaAgenda = AgendaValor[0]
                     const MesAgenda = AgendaValor[1]
-                    console.log(AgendaValor)
                     const divAgenda = `
                       <div class="agenda-${NomeAgenda.replaceAll(' ', '_')}">
                         <h2>${NomeAgenda}</h2>
@@ -1265,31 +1124,28 @@ intervalo2 = setInterval(() => {
                         </section>
                       </div>
                       `
-                    console.log(NomeAgenda)
                     sectionAgenda.remove()
                     sectionFeitos.insertAdjacentHTML('beforeend', divAgenda)
-                    terminou = false         /////////////////// -------------------------------------aqui
+                    terminou = false
                     let SectionAgenda = document.querySelector(`.agenda-${NomeAgenda.replaceAll(' ', '_')}`)
                     addAgendaSupa(SectionAgenda)
                     botaoRemoveAgenda()
                   } else {sectionAgenda.insertAdjacentHTML('beforeend', '<div class="aviso-nao-marcado">vc ainda n marcou todas opcoes</div>')}
                 })
               }}
-          }) ////////o azul ai é antes dele
+          })
         })
-        /* <li> <a id="prazo" href="prazo">adicionar prazo</a> </li>
-        <li> <a id="evento" href="evento">adicionar evento</a> </li> */
       }
     }
 
     function verTodosTopicos() {
       const todasDivs = document.querySelectorAll('.topicos-feitos')
       todasDivs.forEach((item) => {
-        console.log(item)
         console.log(item.children)
       })
     }
 
+    // location.pathname é o caminho para onde a página está indo
     function navegarPara(caminho) {
       if (intervalo) {
         clearInterval(intervalo);
@@ -1298,7 +1154,6 @@ intervalo2 = setInterval(() => {
       }
 
       window.history.pushState({}, "", caminho)
-      //localStorage.setItem('ultimaRota', caminho)
       carregarPagina(caminho)
     }
 
@@ -1325,45 +1180,7 @@ intervalo2 = setInterval(() => {
           setTimeout(() => {
             avisoAlerta.remove()
             aviso = true
-            //clearInterval()
           }, 2000)
         }
-        //alert('vc precisa se logar antes')
       })})
     }}, 500)
-//const rotaSalva = localStorage.getItem('ultimaRota') || window.location.pathname;
-//carregarPagina(rotaSalva); //pra n bugar no F%
-
-//location é o caminho onde ESTA indo, ai vc muda praquela path
-
-
-//agr a gente precisa criar as FUNCOES
-
-//primeiro, listener nos botoes ja criados.
-
-
-//-------------
-//assuntos
-//childreen (se fosse assim seria ruim pq n da pra ser direto)
-//shift alt A pra comentar
-
-
-/* const assunto = document.querySelector('#addT')
-const sectionPai = document.querySelector('.assuntos')
-const inputT = `
-<section class="topico">
-  <form class="form-T" action="">
-    <label class="nome-T">Digite seu topico</label>
-    <input type="text" for="Top" id="Top" name="Top">
-    <button type="submit" id="Top">adicionar</button>
-  </form>
-</section>
-`
-
-assunto.addEventListener('click', (e) => {
-  e.preventDefault()
-  const sectionPai = document.querySelector('.assuntos')
-  sectionPai.insertAdjacentHTML('beforeend', inputT);
-  console.log('assunto adicionado')
-}) */
-//insertAdjacentHTML é PERFEITO
