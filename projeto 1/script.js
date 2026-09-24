@@ -1,13 +1,23 @@
-// Estrutura HTML que estou seguindo:
-// - section para cada h1; div para blocos com h2 + p dentro de uma section
-// - nav para abas, ul > li > a para botões
-// - ul e li quando há várias opções ou imagens
-// - dl, dt, dd para FAQ
-// - class em todo section, div e ul
-// - form com label + input (type, for, id, name) e button type="submit"
-// - no submit: preventDefault, listener('submit') e mudar o innerHTML do section
-// - para pegar o valor de um input: document.querySelector('#id').value
-// - href serve para dar destino à página ou rota
+//cada section pra h1, div se tiver h2 com p(dai teria q ter section)
+//nav pra abas
+//ul dps li pra botoes com a href
+
+//ul e li pra caso tenha varias imagens(slide ou opcoes com src=)
+//img pra imagens nos sections
+
+//dl, dt, dd pra FAQ
+
+//ai pra login ou submit vc usa o form
+//form vai ter label(class e conteudo) e o input(type, for, id, nome)
+//e o buttom(type=submit) com conteudo de enviar
+//ai vc da preventdefault no forms
+//da listener('submit')
+//e muda o conteudo no innerhtml do section
+//pra pegar informacao é no input, no caso vc pega o id(#nome).value
+
+//h2 e P nos section(div)
+
+//href é exclusivamente pra dar destino pra pagina ou rota
 
 let aviso = true
 const rotas = {
@@ -81,8 +91,6 @@ const rotas = {
     </div>
   `
 }
-
-// ---------- Login e cadastro (Supabase Auth) ----------
 
 let logado = false
 let usuarioValor = 0
@@ -181,8 +189,6 @@ async function cadastrar() {
 
 cadastrar()
 
-// ---------- Banco de dados: tópicos (Supabase) ----------
-
 async function dadosClientSupa(topicHtml) {
   const { data: { user }, error: authError } = await supa.auth.getUser()
 
@@ -240,8 +246,6 @@ async function buscarDadosSupa() {
   })
   }
 }
-
-// ---------- Banco de dados: agendas (Supabase) ----------
 
 async function addAgendaSupa(agendaHtml) {
   const {data: { user }, error: authError} = await supa.auth.getUser()
@@ -326,8 +330,7 @@ async function DeletarBanco(Identificador) {
 }
 }
 
-// ---------- localStorage: banco de dados do usuário ----------
-// dá pra guardar o HTML no localStorage usando o ID das divs como identificador
+//da pra guardar o HTML no localstorage se vc usar o ID dos divs
 
 localStorage.setItem('topicos', JSON.stringify([]))
 function adicionarLocal(Topics) {
@@ -350,8 +353,6 @@ function adicionarLocal(Topics) {
     localStorage.setItem('topicos', JSON.stringify([]))
 }
 }
-
-// ---------- Pomodoro: alarme e cronômetro ----------
 
 let alarme = false
 let intervalo = null
@@ -379,7 +380,7 @@ function tocarAlarme() {
     audioCtx.close();
     repeticoes--;
     if (repeticoes > 0) {
-        setTimeout(dispararBipe, 200); // Pausa de 200ms e chama o próximo bipe
+        setTimeout(dispararBipe, 200); // 3. Pausa de 200ms e chama o próximo bipe
       }
     }, 500);
   }
@@ -407,8 +408,6 @@ function iniciarConometro(segundos) {
   }
   }, 1000)
 }
-
-// ---------- Página inicial (usuário logado) ----------
 
 const logadadissimo = `
 <section class="page-content home">
@@ -442,8 +441,6 @@ const logadadissimo = `
   </div>
 </section>
 `
-
-// ---------- Botões de remover (agendas e tópicos) ----------
 
 function botaoRemoveAgenda() {
   const agendaFeita = document.querySelector('.agendas-feita')
@@ -491,8 +488,6 @@ function BotaoRemoveTopicos() {
   )})
         }}, 900)}
 
-// ---------- Rotas e páginas (só carrega depois do login) ----------
-
 intervalo2 = setInterval(() => {
   const pagina = document.querySelector('#app')
   if (usuarioValor || localStorage.getItem('logado')) {
@@ -502,7 +497,6 @@ intervalo2 = setInterval(() => {
       const path = rotas[caminho] || rotas["404"]
       pagina.innerHTML = path
 
-      // ----- Assuntos -----
       if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/assuntos") {
         buscarDadosSupa()
         BotaoRemoveTopicos()
@@ -569,7 +563,6 @@ intervalo2 = setInterval(() => {
                 const topicoAtual = item.closest('.topico')
                 topof = topicoAtual.innerHTML
                 if (!notesAtivo) {
-                  // roteiro de estudos: checklist com links (ou plataformas)
                   if (filtroBtn === 'roteiro') {
                     notesAtivo = true
                     const opcaoSelct = item.getAttribute('href')
@@ -620,7 +613,6 @@ intervalo2 = setInterval(() => {
                       BotaoRemoveTopicos()
                     })
                   }
-                  // definições: chave e valor
                   if (filtroBtn === 'definicoes') {
                     notesAtivo = true
                     const anotacaodefinicoes = `
@@ -669,7 +661,6 @@ intervalo2 = setInterval(() => {
                       dadosClientSupa(topicoAtual)
                       BotaoRemoveTopicos()
                   })}
-                  // anotações: espaço livre
                   if (filtroBtn === 'anotacoes') {
                     notesAtivo = true
                     const notes = `
@@ -712,12 +703,14 @@ intervalo2 = setInterval(() => {
                       dadosClientSupa(topicoAtual)
                       BotaoRemoveTopicos()
                   })}}
+                //roteiro de estudos.. checklist com links(ou plataformas)
+                //definicoes:chaves e valores
+                //anotacoes: espaço livre
               })
             })
             }})
           }})}
 
-      // ----- Pomodoro -----
       if (caminho === "https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/pomodoro") {
         const botoesFoco = document.querySelectorAll('.ciclos a')
         let tempoDescanso = 0
@@ -807,7 +800,6 @@ intervalo2 = setInterval(() => {
         })
       }
 
-      // ----- Prazos e agendas -----
       if (caminho === 'https://nicolasgomesnicolau-lab.github.io/Projetos-front-end-em-js-com-css-de-IA/projeto%201/prazos') {
         buscarAgenda()
         botaoRemoveAgenda()
@@ -1145,7 +1137,7 @@ intervalo2 = setInterval(() => {
       })
     }
 
-    // location.pathname é o caminho para onde a página está indo
+    //location é o caminho onde ESTA indo, ai vc muda praquela path
     function navegarPara(caminho) {
       if (intervalo) {
         clearInterval(intervalo);
